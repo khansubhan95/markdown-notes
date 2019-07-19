@@ -1,0 +1,24 @@
+.Note {
+    border-bottom: 1px solid #464F51;
+    height: 90px;
+    cursor: pointer;
+}
+
+.Note h3 {
+    margin: 0;
+    text-align: left;
+    padding: 2%;
+    height: 10%;
+    font-size: 15px;
+}
+
+.Note p {
+    margin: 0;
+    text-align: justify;
+    padding: 2%;
+    font-size: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}

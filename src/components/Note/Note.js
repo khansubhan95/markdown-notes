@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-var marked = require('marked')
+import './Note.css'
 
-const note = (props) => {
-  return (
-    <div>
-      <h3>{props.title}</h3>
-      <p dangerouslySetInnerHTML={{__html: marked(props.content)}}></p>
-    </div>
-  );
+class Note extends Component {
+  render() {
+    return (
+      <div onClick={this.clicked} className="Note">
+        <h3>{this.props.title}</h3>
+        <p>{this.props.content}</p>
+      </div>
+    )
+  }
 }
 
-export default note;
+export default Note;

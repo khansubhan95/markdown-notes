@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import './NewNote.css'
 
-var marked = require('marked')
+const marked = require('marked')
+const domPurify = require('dompurify')
+
 
 class NewNote extends Component {
   state = {
@@ -45,21 +48,29 @@ class NewNote extends Component {
       formError = <p>Error</p>
     }
     return (
-      <div>
-        {formError}
-        <form onSubmit={this.formSubmit}>
-          <label>
-            Title: <input type="text" name="title" onChange={this.titleUpdate} />
-          </label>
-          <br />
-          <label>
-            Content: <textarea name="content" onChange={this.contentUpdate} />
-          </label>
+      <div className="NewNoteColumn">
+        <div className="NewNote">
+          {formError}
+          <form onSubmit={this.formSubmit}>
+            {/* <label> */}
+              {/* Title:{" "} */}
+              <input type="text" name="title" placeholder="Title" onChange={this.titleUpdate} />
+            {/* </label> */}
+            <br />
+            {/* <label> */}
+              {/* Content:{" "} */}
+              <textarea name="content" placeholder="Content" onChange={this.contentUpdate} />
+            {/* </label> */}
 
-          <br />
-          <input type="submit" value="submit" />
-        </form>
-        <div dangerouslySetInnerHTML={{__html: this.getMarkdown()}}></div>
+            <br />
+            <input className="btn btn-primary" type="submit" value="submit" />
+          </form>
+        </div>
+        <div className="RenderMarkdown"
+          dangerouslySetInnerHTML={{
+            __html: domPurify.sanitize(this.getMarkdown())
+          }}
+        />
       </div>
     );
   }

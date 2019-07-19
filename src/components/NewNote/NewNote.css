@@ -1,0 +1,71 @@
+.NewNoteColumn {
+    height: 100%;
+}
+
+.NewNote {
+    /* margin-left: 25%; */
+    width: 37.5%;
+    height: 100%;
+    max-height: 100%;
+    float: left;
+    overflow-y: auto;
+    max-width: 100%;
+}
+
+.NewNote form {
+    height: 100%;
+}
+
+.NewNote input[type="text"] {
+    width: 98%;
+    height:4%;
+    font-family: monospace;
+    font-weight: bold;
+    padding: 0;
+    font-size: 23px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+.NewNote input[type="text"]:focus {
+    outline: none;
+}
+
+
+.NewNote textarea {
+    width: 98%;
+    height: 90%;
+    padding: 0;
+    font-family: monospace;
+    font-size: 18px;
+    border: none;
+    border-bottom: 1px solid black;
+    resize: none;
+}
+
+.NewNote textarea:focus {
+    outline: none;
+}
+
+.NewNote input[type="submit"] {
+    width: 50%;
+    /* background-color: green; */
+}
+
+.RenderMarkdown {
+    margin-left: 62.5%;
+    /* float: left; */
+    padding: 2%;
+    height: 100%;
+    max-height: 100%;
+    border-left: 1px solid black;
+    overflow-y: auto;
+    text-align: left;
+}
+
+.RenderMarkdown img {
+    width: 200px;
+    height: 200px;
+}
+
