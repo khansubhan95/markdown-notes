@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+var marked = require('marked')
+
 class NewNote extends Component {
   state = {
     newTitle: "",
@@ -32,6 +34,11 @@ class NewNote extends Component {
     }
   };
 
+  getMarkdown = () => {
+    let markup = marked(this.state.newContent)
+    return markup;
+  }
+
   render() {
     let formError = null
     if (this.state.formError) {
@@ -52,7 +59,7 @@ class NewNote extends Component {
           <br />
           <input type="submit" value="submit" />
         </form>
-        {/* <p dangerouslySetInnerHTML={this.getMarkdown}></p> */}
+        <div dangerouslySetInnerHTML={{__html: this.getMarkdown()}}></div>
       </div>
     );
   }

@@ -16,9 +16,6 @@ class Notes extends Component {
   };
 
   noteSubmission =(data) => {
-    // event.preventDefault()
-    // console.log(event.target.title.value);
-    // console.log(event.target.content.value);
     let newNote = {
       id: new Date(),
       title: data.newTitle,
@@ -44,6 +41,7 @@ class Notes extends Component {
     return (
       <div className="Notes">
         <NewNote submit={this.noteSubmission} />
+        <hr />
         {notes}
       </div>
     );
