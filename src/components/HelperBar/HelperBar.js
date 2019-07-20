@@ -109,7 +109,7 @@ const helperBar = (props) => {
       </div>
       <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul className="navbar-nav ml-auto">
-          <li className="nav-item active">
+          {/* <li className="nav-item active">
             <a className="nav-link" href="#">
               Right
             </a>
@@ -118,7 +118,7 @@ const helperBar = (props) => {
             <a className="nav-link" href="#">
               Link
             </a>
-          </li>
+          </li> */}
         </ul>
       </div>
     </nav>

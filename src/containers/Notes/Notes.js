@@ -216,7 +216,11 @@ class Notes extends Component {
     });
     return (
       <div className="NotesColumn">
-        <HelperBar newNote={this.newNote} insertMdHelp={this.insertMdHelp} />
+        <HelperBar
+          newNote={this.newNote}
+          insertMdHelp={this.insertMdHelp}
+          exportToPdf={this.createPdf}
+        />
         {formError}
         <div className="NotesContainer">
           <div className="Notes">{notes}</div>
