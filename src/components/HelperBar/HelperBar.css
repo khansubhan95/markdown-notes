@@ -1,4 +1,7 @@
-.HelperBar {
-    height: 6%;
-    border: 1px solid red;
+.navbar {
+    background-color: #343a40;
+}
+
+.navbar-brand {
+    font-family: 'Russo One', sans-serif;
 }

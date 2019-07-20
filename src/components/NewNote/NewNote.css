@@ -1,19 +1,23 @@
 .NewNoteColumn {
     height: 100%;
+    flex: 3;
+    display: flex;
 }
 
 .NewNote {
-    /* margin-left: 25%; */
     width: 37.5%;
     height: 100%;
     max-height: 100%;
     float: left;
     overflow-y: auto;
     max-width: 100%;
+    flex: 1;
 }
 
 .NewNote form {
     height: 100%;
+    padding: 1%;
+
 }
 
 .NewNote input[type="text"] {
@@ -25,7 +29,7 @@
     font-size: 23px;
     outline: none;
     border: none;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid gray;
 }
 
 .NewNote input[type="text"]:focus {
@@ -40,7 +44,7 @@
     font-family: monospace;
     font-size: 18px;
     border: none;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid gray;
     resize: none;
 }
 
@@ -50,18 +54,17 @@
 
 .NewNote input[type="submit"] {
     width: 50%;
-    /* background-color: green; */
 }
 
 .RenderMarkdown {
-    margin-left: 62.5%;
-    /* float: left; */
     padding: 2%;
     height: 100%;
     max-height: 100%;
-    border-left: 1px solid black;
+    border-left: 1px solid gray;
     overflow-y: auto;
     text-align: left;
+    flex: 1;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .RenderMarkdown img {
@@ -69,3 +72,7 @@
     height: 200px;
 }
 
+.RenderMarkdown pre,
+.RenderMarkdown code {
+    background-color: #f6f8fa;
+}

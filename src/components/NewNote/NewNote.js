@@ -6,28 +6,40 @@ const domPurify = require("dompurify");
 
 class NewNote extends Component {
   state = {
-    newTitle: "",
-    newContent: "",
     formError: false
   };
 
-  titleUpdate = event => {
-    this.setState({ newTitle: event.target.value });
-  };
-
-  contentUpdate = event => {
-    this.setState({ newContent: event.target.value });
-  };
-
   getMarkdown = () => {
-    let markup = marked(this.state.newContent);
+    let markup = marked(this.props.contentValue);
     return markup;
   };
 
   render() {
     let formError = null;
     if (this.state.formError) {
-      formError = <p>Error</p>;
+      formError = (
+        <div
+          className="toast"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div className="toast-header">
+            <img src="..." className="rounded mr-2" alt="..." />
+            <strong className="mr-auto">Bootstrap</strong>
+            <small className="text-muted">just now</small>
+            <button
+              type="button"
+              className="ml-2 mb-1 close"
+              data-dismiss="toast"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div className="toast-body">See? Just like this.</div>
+        </div>
+      );
     }
     return (
       <div className="NewNoteColumn">
@@ -37,23 +49,18 @@ class NewNote extends Component {
             <input
               type="text"
               name="title"
-              placeholder="Title"
+              placeholder="Note title"
               value={this.props.titleValue}
               onChange={this.props.titleUpdate}
             />
             <br />
             <textarea
               name="content"
-              placeholder="Content"
+              placeholder="Markdown content"
               value={this.props.contentValue}
               onChange={this.props.contentUpdate}
             />
-            <br />
-            <input
-              className="btn btn-success"
-              type="submit"
-              value="Submit"
-            />
+            <input className="btn btn-success" type="submit" value="Save" />
           </form>
         </div>
         <div
