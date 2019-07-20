@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import update from "immutability-helper";
 
-import './Notes.css';
-import Note from '../../components/Note/Note'
-import NewNote from '../../components/NewNote/NewNote'
+import "./Notes.css";
+import Note from "../../components/Note/Note";
+import NewNote from "../../components/NewNote/NewNote";
 
 class Notes extends Component {
   state = {
@@ -16,8 +17,9 @@ class Notes extends Component {
       { id: 2, title: "Hello World2", content: "Content 2" },
       { id: 3, title: "Hello World3", content: "Content 3" }
     ],
-    newNoteTitle: "aa",
-    newNoteContent: "bb"
+    selectedNoteId: null,
+    selectedNoteTitle: "",
+    selectedNoteContent: ""
   };
 
   noteSubmission = data => {
@@ -30,23 +32,79 @@ class Notes extends Component {
     this.setState({ notes: this.state.notes.concat(newNote) });
   };
 
+  clickNote = givenId => {
+    let note = Object.assign({}, this.state.notes.find(n => n.id === givenId));
+    // console.log(note);
+
+    this.setState({
+      selectedNoteTitle: note.title,
+      selectedNoteContent: note.content,
+      selectedNoteId: note.id
+    });
+  };
+
+  titleUpdate = event => {
+    this.setState({ selectedNoteTitle: event.target.value });
+  };
+
+  contentUpdate = event => {
+    this.setState({ selectedNoteContent: event.target.value });
+  };
+
+  formSubmit = event => {
+    event.preventDefault();
+    if (event.target.title.value !== "") {
+      if (this.state.selectedNoteId !== null) {
+        const tempNotes = this.state.notes;
+        const noteIndex = tempNotes.findIndex(
+          n => n.id === this.state.selectedNoteId
+        );
+
+        const updatedObject = update(tempNotes[noteIndex], {
+          title: { $set: this.state.selectedNoteTitle },
+          content: { $set: this.state.selectedNoteContent }
+        });
+
+        let newData = update(tempNotes, {
+          $splice: [[noteIndex, 1, updatedObject]]
+        });
+        this.setState({ notes: newData });
+      } else {
+        this.noteSubmission({
+          newTitle: event.target.title.value,
+          newContent: event.target.content.value
+        });
+        this.setState({ selectedNoteTitle: "", selectedNoteContent: "" });
+      }
+    } else {
+      this.setState({ formError: true });
+    }
+  };
+
   render() {
     let notes = null;
     notes = this.state.notes.map(note => {
       return (
         <Note
           key={note.id}
+          id={note.id}
           title={note.title}
           content={note.content}
-          titleValue={this.state.newNoteTitle}
-          titleContent={this.state.newNoteContent}
+          clicked={this.clickNote}
         />
       );
     });
     return (
       <div className="NotesColumn">
         <div className="Notes">{notes}</div>
-        <NewNote submit={this.noteSubmission} />
+        <NewNote
+          // submit={this.noteSubmission}
+          submit={this.formSubmit}
+          titleUpdate={this.titleUpdate}
+          contentUpdate={this.contentUpdate}
+          titleValue={this.state.selectedNoteTitle}
+          contentValue={this.state.selectedNoteContent}
+        />
       </div>
     );
   }

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import './App.css';
-import Notes from './containers/Notes/Notes'
-import HelperBar from './components/HelperBar/HelperBar'
+import "./App.css";
+import Notes from "./containers/Notes/Notes";
+import HelperBar from "./components/HelperBar/HelperBar";
 
 class App extends Component {
   render() {
@@ -11,7 +11,7 @@ class App extends Component {
         <HelperBar />
         <Notes />
       </div>
-    )
+    );
   }
 }
 
