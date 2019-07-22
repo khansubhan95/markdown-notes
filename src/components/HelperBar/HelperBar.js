@@ -7,95 +7,67 @@ const helperBar = (props) => {
     <nav className="navbar navbar-expand-md navbar-dark">
       <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul className="navbar-nav mr-auto">
-          <li className="nav-item active">
-            <a onClick={props.newNote} className="nav-link" href="#">
-              <i className="fas fa-plus" />
-            </a>
-          </li>
-          <li className="nav-item active">
-            <a
-              onClick={() => props.insertMdHelp("image")}
-              className="nav-link"
-              href="#"
-            >
-              <i class="fas fa-images" />
-            </a>
-          </li>
-          <li className="nav-item active">
-            <a
-              onClick={() => props.insertMdHelp("heading")}
-              className="nav-link"
-              href="#"
-            >
-              <i class="fas fa-heading" />
-            </a>
-          </li>
-          <li className="nav-item active">
-            <a
-              onClick={() => props.insertMdHelp("bold")}
-              className="nav-link"
-              href="#"
-            >
-              <i class="fas fa-bold" />
-            </a>
-          </li>
-          <li className="nav-item active">
-            <a
-              onClick={() => props.insertMdHelp("italic")}
-              className="nav-link"
-              href="#"
-            >
-              <i class="fas fa-italic" />
-            </a>
-          </li>
-          <li className="nav-item active">
-            <a
-              onClick={() => props.insertMdHelp("strikethrough")}
-              className="nav-link"
-              href="#"
-            >
-              <i class="fas fa-strikethrough" />
-            </a>
-          </li>
-          <li className="nav-item active">
-            <a
-              onClick={() => props.insertMdHelp("link")}
-              className="nav-link"
-              href="#"
-            >
-              <i class="fas fa-link" />
-            </a>
+          <li className="nav-item active nav-link" onClick={props.newNote}>
+            <i className="fas fa-plus" />
           </li>
           <li
-            onClick={() => props.insertMdHelp("ul")}
-            className="nav-item active"
+            className="nav-item active nav-link"
+            onClick={() => props.insertMdHelp("image")}
           >
-            <a className="nav-link" href="#">
-              <i class="fas fa-list-ul" />
-            </a>
+            <i className="fas fa-images" />
           </li>
-          <li className="nav-item active">
-            <a
-              onClick={() => props.insertMdHelp("ol")}
-              className="nav-link"
-              href="#"
-            >
-              <i class="fas fa-list-ol" />
-            </a>
+          <li
+            className="nav-item active nav-link"
+            onClick={() => props.insertMdHelp("heading")}
+          >
+            <i className="fas fa-heading" />
           </li>
-          <li className="nav-item active">
-            <a
-              onClick={() => props.insertMdHelp("code")}
-              className="nav-link"
-              href="#"
-            >
-              <i class="fas fa-code" />
-            </a>
+          <li
+            className="nav-item active nav-link"
+            onClick={() => props.insertMdHelp("bold")}
+          >
+            <i className="fas fa-bold" />
+          </li>
+          <li
+            className="nav-item active nav-link"
+            onClick={() => props.insertMdHelp("italic")}
+          >
+            <i className="fas fa-italic" />
+          </li>
+          <li
+            className="nav-item active nav-link"
+            onClick={() => props.insertMdHelp("strikethrough")}
+          >
+            <i className="fas fa-strikethrough" />
+          </li>
+          <li
+            className="nav-item active nav-link"
+            onClick={() => props.insertMdHelp("link")}
+          >
+            <i className="fas fa-link" />
+          </li>
+          <li
+            className="nav-item active nav-link"
+            onClick={() => props.insertMdHelp("ul")}
+          >
+            <i className="fas fa-list-ul" />
+          </li>
+          <li
+            className="nav-item active nav-link"
+            onClick={() => props.insertMdHelp("ol")}
+          >
+            <i className="fas fa-list-ol" />
+          </li>
+          <li
+            className="nav-item active nav-link"
+            onClick={() => props.insertMdHelp("code")}
+          >
+              <i className="fas fa-code" />
           </li>
         </ul>
       </div>
       <div className="mx-auto order-0">
-        <a className="navbar-brand mx-auto" href="#">
+        <a className="navbar-brand mx-auto" href="/">
           React Markdown Notes
         </a>
         <button

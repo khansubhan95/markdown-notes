@@ -2,6 +2,10 @@
     background-color: #343a40;
 }
 
+.navbar li {
+    cursor: pointer;
+}
+
 .navbar-brand {
     font-family: 'Russo One', sans-serif;
 }

@@ -7,8 +7,6 @@ import Note from "../../components/Note/Note";
 import NewNote from "../../components/NewNote/NewNote";
 import HelperBar from "../../components/HelperBar/HelperBar";
 
-var cors = require('cors')
-
 class Notes extends Component {
   state = {
     notes: [],
@@ -81,11 +79,11 @@ class Notes extends Component {
           content: this.state.selectedNoteContent
         }
 
-        axios
-          .put("/notes/" + updatedObject.id + '.json', tempObject)
-          .then(response => {
-            console.log(response);
-          });
+        // axios
+        //   .put("/notes/" + updatedObject.id + '.json', tempObject)
+        //   .then(response => {
+        //     console.log(response);
+        //   });
 
         let newData = update(tempNotes, {
           $splice: [[noteIndex, 1, updatedObject]]
@@ -97,14 +95,14 @@ class Notes extends Component {
           newContent: event.target.content.value
         });
 
-        axios
-          .post("/notes.json", {
-            title: event.target.title.value,
-            content: event.target.content.value
-          })
-          .then(response => {
-            console.log(response);
-          });
+        // axios
+        //   .post("/notes.json", {
+        //     title: event.target.title.value,
+        //     content: event.target.content.value
+        //   })
+        //   .then(response => {
+        //     console.log(response);
+        //   });
 
         this.setState({ selectedNoteTitle: "", selectedNoteContent: "" });
       }
