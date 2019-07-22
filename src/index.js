@@ -1,16 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
-import { createStore } from "redux";
+import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
 
 import "./index.css";
 import App from "./App";
-import reducer from './store/reducer'
+import notesReducer from "./store/reducers/notes";
 
 import * as serviceWorker from "./serviceWorker";
 
-const store = createStore(reducer)
+const rootReducer = combineReducers({
+  notes: notesReducer
+})
+
+const store = createStore(rootReducer);
 
 axios.defaults.baseURL = "https://react-markdown-notes.firebaseio.com/";
 
