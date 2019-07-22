@@ -1,34 +1,17 @@
 import React, { Component } from "react";
 import update from "immutability-helper";
+import axios from "axios";
 
 import "./Notes.css";
 import Note from "../../components/Note/Note";
 import NewNote from "../../components/NewNote/NewNote";
 import HelperBar from "../../components/HelperBar/HelperBar";
-import * as constants from "../../constants";
+
+var cors = require('cors')
 
 class Notes extends Component {
   state = {
-    notes: [
-      {
-        id: 1,
-        title: "Welcome",
-        content:
-          "Welcome to React Markdown Notes. Write your notes here and see them rendered on the right.\nTo get started click on + in the helper bar, write your note and click Save.\n\nUse the helper bar above to insert markdown helper utilities."
-      },
-      {
-        id: 2,
-        title: "Lorem ipsum",
-        content:
-          "Lorem ipsum dolor sit amet, elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-      },
-      {
-        id: 3,
-        title: "Stock Images",
-        content:
-          "Need stock images? Use this API https://source.unsplash.com/random"
-      }
-    ],
+    notes: [],
     selectedNoteId: null,
     selectedNoteTitle: "",
     selectedNoteContent: "",
@@ -36,7 +19,16 @@ class Notes extends Component {
   };
 
   componentDidMount() {
-    this.clickNote(1);
+    axios.get("/notes.json").then(response => {
+      if (response.data !== null) {
+        const tempNotes = Object.entries(response.data).map(e =>
+          Object.assign(e[1], { id: e[0] })
+        );
+        this.setState({ notes: tempNotes });
+      } else {
+        this.setState({ notes: [] });
+      }
+    });
   }
 
   noteSubmission = data => {
@@ -82,6 +74,19 @@ class Notes extends Component {
           content: { $set: this.state.selectedNoteContent }
         });
 
+        // console.log('updae',updatedObject);
+
+        const tempObject = {
+          title: this.state.selectedNoteTitle,
+          content: this.state.selectedNoteContent
+        }
+
+        axios
+          .put("/notes/" + updatedObject.id + '.json', tempObject)
+          .then(response => {
+            console.log(response);
+          });
+
         let newData = update(tempNotes, {
           $splice: [[noteIndex, 1, updatedObject]]
         });
@@ -91,6 +96,16 @@ class Notes extends Component {
           newTitle: event.target.title.value,
           newContent: event.target.content.value
         });
+
+        axios
+          .post("/notes.json", {
+            title: event.target.title.value,
+            content: event.target.content.value
+          })
+          .then(response => {
+            console.log(response);
+          });
+
         this.setState({ selectedNoteTitle: "", selectedNoteContent: "" });
       }
     } else {
@@ -177,7 +192,7 @@ class Notes extends Component {
     this.setState({
       selectedNoteId: null,
       selectedNoteTitle: "",
-      selectedNoteContent: constants.FILLER
+      selectedNoteContent: ""
     });
   };
 
@@ -214,6 +229,13 @@ class Notes extends Component {
         />
       );
     });
+    if (notes.length === 0) {
+      notes = (
+        <p style={{ color: "gray" }}>
+          This space looks empty. Start by creating some notes!
+        </p>
+      );
+    }
     return (
       <div className="NotesColumn">
         <HelperBar
