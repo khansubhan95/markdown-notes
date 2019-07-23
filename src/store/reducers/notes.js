@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions'
+import * as actionTypes from "../actions";
 
 const initialState = {
   notes: [],
@@ -25,6 +25,17 @@ const reducer = (state = initialState, action) => {
     case actionTypes.NEW_NOTE:
       return {
         ...state,
+        selectedNoteId: null,
+        selectedNoteTitle: "",
+        selectedNoteContent: ""
+      };
+    case actionTypes.DELETE_NOTE:
+      let notesArr = [...state.notes];
+      const deleteNoteIndex = notesArr.findIndex(n => n.id === action.id);
+      notesArr.splice(deleteNoteIndex, 1);
+      return {
+        ...state,
+        notes: notesArr,
         selectedNoteId: null,
         selectedNoteTitle: "",
         selectedNoteContent: ""

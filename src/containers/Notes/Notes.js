@@ -187,6 +187,18 @@ class Notes extends Component {
     this.props.newNote();
   };
 
+  deleteNote = id => {
+    axios
+      .delete("/notes/" + id + ".json?auth=" + this.props.token)
+      .then(response => {
+        this.props.deleteNote(id);
+        // this.props.newNote()
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   render() {
     let notes = null;
     let formError = null;
@@ -217,6 +229,7 @@ class Notes extends Component {
           content={note.content}
           clicked={this.clickNote}
           focus={note.focus}
+          delete={this.deleteNote}
         />
       );
     });
@@ -236,10 +249,7 @@ class Notes extends Component {
     return (
       <div className="NotesColumn">
         {authRedirect}
-        <HelperBar
-          newNote={this.newNote}
-          insertMdHelp={this.insertMdHelp}
-        />
+        <HelperBar newNote={this.newNote} insertMdHelp={this.insertMdHelp} />
         {formError}
         <div className="NotesContainer">
           <div className="Notes">{notes}</div>
@@ -278,7 +288,8 @@ const mapDispatchToProps = dispatch => {
     titleUpdate: title =>
       dispatch({ type: actionTypes.TITLE_UPDATE, title: title }),
     contentUpdate: content =>
-      dispatch({ type: actionTypes.CONTENT_UPDATE, content: content })
+      dispatch({ type: actionTypes.CONTENT_UPDATE, content: content }),
+    deleteNote: id => dispatch({ type: actionTypes.DELETE_NOTE, id: id })
   };
 };
 
