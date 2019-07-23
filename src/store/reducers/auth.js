@@ -3,7 +3,8 @@ import * as actionTypes from "../actions";
 const initialState = {
   token: null,
   userId: null,
-  error: null
+  error: null,
+  expirationDate: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -12,13 +13,15 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         token: action.authInfo.token,
-        userId: action.authInfo.userId
+        userId: action.authInfo.userId,
+        expirationDate: action.authInfo.expirationDate
       };
     case actionTypes.AUTH_LOGOUT:
       return {
         ...state,
         token: null,
-        userId: null
+        userId: null,
+        expirationDate: null
       };
     case actionTypes.AUTH_ERROR:
       return {

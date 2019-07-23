@@ -13,13 +13,22 @@ import * as actionTypes from "./store/actions";
 
 class App extends Component {
   render() {
+    let redirect = null
+    if (
+      localStorage.getItem("expirationDate") !== null &&
+      Date.parse(localStorage.getItem("expirationDate")) < new Date()
+    ) {
+      redirect = <Redirect to="/logout" />
+    }
     this.props.authUser({
       userId: localStorage.getItem("userId"),
-      token: localStorage.getItem("token")
+      token: localStorage.getItem("token"),
+      expirationDate: localStorage.getItem("expirationDate")
     });
     return (
       <div className="App">
         <BrowserRouter>
+        {redirect}
           <Switch>
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
@@ -39,13 +48,16 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.token !== null
+    isAuthenticated: state.auth.token !== null,
+    expirationDate: state.auth.expirationDate
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    authUser: info => dispatch({ type: actionTypes.AUTH_LOGIN, authInfo: info })
+    authUser: info =>
+      dispatch({ type: actionTypes.AUTH_LOGIN, authInfo: info }),
+    onLogout: () => dispatch({ type: actionTypes.AUTH_LOGOUT })
   };
 };
 

@@ -23,9 +23,12 @@ class Login extends Component {
         console.log(response);
         localStorage.setItem("userId", response.data.localId);
         localStorage.setItem("token", response.data.idToken);
+        let expiresIn = new Date(new Date().getTime() + response.data.expiresIn * 1000)
+        localStorage.setItem("expirationDate", expiresIn)
         this.props.authUser({
           userId: response.data.localId,
-          token: response.data.idToken
+          token: response.data.idToken,
+          expirationDate: expiresIn
         });
         this.props.history.push("/notes");
       })
