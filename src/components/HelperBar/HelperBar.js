@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./HelperBar.css";
 
-const helperBar = (props) => {
+const helperBar = props => {
   return (
     <nav className="navbar navbar-expand-md navbar-dark">
       <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
@@ -62,7 +63,7 @@ const helperBar = (props) => {
             className="nav-item active nav-link"
             onClick={() => props.insertMdHelp("code")}
           >
-              <i className="fas fa-code" />
+            <i className="fas fa-code" />
           </li>
         </ul>
       </div>
@@ -81,16 +82,11 @@ const helperBar = (props) => {
       </div>
       <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul className="navbar-nav ml-auto">
-          {/* <li className="nav-item active">
-            <a className="nav-link" href="#">
-              Right
-            </a>
-          </li>
           <li className="nav-item active">
-            <a className="nav-link" href="#">
-              Link
-            </a>
-          </li> */}
+              <Link className="nav-link" to="/logout">
+                <i className="fas fa-sign-out-alt" />
+              </Link>
+          </li>
         </ul>
       </div>
     </nav>

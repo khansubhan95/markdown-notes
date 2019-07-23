@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import update from "immutability-helper";
 import axios from "axios";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 import "./Notes.css";
 import Note from "../../components/Note/Note";
@@ -19,7 +20,13 @@ class Notes extends Component {
   };
 
   componentDidMount() {
-    axios.get("/notes.json").then(response => {
+    const queryParams =
+      "?auth=" +
+      this.props.token +
+      '&orderBy="userId"&equalTo="' +
+      this.props.userId +
+      '"';
+    axios.get("/notes.json" + queryParams).then(response => {
       if (response.data !== null) {
         const tempNotes = Object.entries(response.data).map(e =>
           Object.assign(e[1], { id: e[0] })
@@ -75,11 +82,15 @@ class Notes extends Component {
 
         const tempObject = {
           title: this.props.selectedNoteTitle,
-          content: this.props.selectedNoteContent
+          content: this.props.selectedNoteContent,
+          userId: this.props.userId
         };
 
         axios
-          .put("/notes/" + updatedObject.id + ".json", tempObject)
+          .put(
+            "/notes/" + updatedObject.id + ".json?auth=" + this.props.token,
+            tempObject
+          )
           .then(response => {
             console.log(response);
           });
@@ -95,9 +106,10 @@ class Notes extends Component {
         });
 
         axios
-          .post("/notes.json", {
+          .post("/notes.json?auth=" + this.props.token, {
             title: event.target.title.value,
-            content: event.target.content.value
+            content: event.target.content.value,
+            userId: this.props.userId
           })
           .then(response => {
             console.log(response);
@@ -215,9 +227,19 @@ class Notes extends Component {
         </p>
       );
     }
+
+    let authRedirect = null;
+    if (!this.props.isAuthenticated) {
+      authRedirect = <Redirect to="/" />;
+    }
+
     return (
       <div className="NotesColumn">
-        <HelperBar newNote={this.newNote} insertMdHelp={this.insertMdHelp} />
+        {authRedirect}
+        <HelperBar
+          newNote={this.newNote}
+          insertMdHelp={this.insertMdHelp}
+        />
         {formError}
         <div className="NotesContainer">
           <div className="Notes">{notes}</div>
@@ -236,11 +258,14 @@ class Notes extends Component {
 
 const mapStateToProps = state => {
   return {
-    notes: state.notes.notes,
-    selectedNoteId: state.notes.selectedNoteId,
-    selectedNoteTitle: state.notes.selectedNoteTitle,
-    selectedNoteContent: state.notes.selectedNoteContent,
-    formError: state.notes.formError
+    notes: state.notesData.notes,
+    selectedNoteId: state.notesData.selectedNoteId,
+    selectedNoteTitle: state.notesData.selectedNoteTitle,
+    selectedNoteContent: state.notesData.selectedNoteContent,
+    formError: state.notesData.formError,
+    token: state.auth.token,
+    userId: state.auth.userId,
+    isAuthenticated: state.auth.token !== null
   };
 };
 

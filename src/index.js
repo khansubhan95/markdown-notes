@@ -7,11 +7,13 @@ import { Provider } from "react-redux";
 import "./index.css";
 import App from "./App";
 import notesReducer from "./store/reducers/notes";
+import authReducer from "./store/reducers/auth";
 
 import * as serviceWorker from "./serviceWorker";
 
 const rootReducer = combineReducers({
-  notes: notesReducer
+  notesData: notesReducer,
+  auth: authReducer
 })
 
 const store = createStore(rootReducer);
