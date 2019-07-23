@@ -2,7 +2,8 @@ import * as actionTypes from "../actions";
 
 const initialState = {
   token: null,
-  userId: null
+  userId: null,
+  error: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,6 +19,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         token: null,
         userId: null
+      };
+    case actionTypes.AUTH_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
+    case actionTypes.CLEAR_ERROR:
+      return {
+        ...state,
+        error: null
       };
   }
   return state;

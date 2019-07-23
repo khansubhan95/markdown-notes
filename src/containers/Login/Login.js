@@ -29,18 +29,54 @@ class Login extends Component {
         });
         this.props.history.push("/notes");
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        console.log(error.response.data.error.message);
+        let errorDetail = null;
+        switch (error.response.data.error.message) {
+          case "INVALID_PASSWORD":
+            errorDetail = "Invalid Password";
+          case "EMAIL_NOT_FOUND":
+            errorDetail =
+              "Account with this email does not exist. Please register.";
+        }
+        this.props.authFail(errorDetail);
+      });
+  };
+
+  removeError = () => {
+    this.props.clearError();
   };
 
   render() {
-    let authRedirect = null
+    let authRedirect = null;
     if (this.props.isAuthenticated) {
-      authRedirect = <Redirect to="/notes" />
+      authRedirect = <Redirect to="/notes" />;
+    }
+    let authFail = null;
+    if (this.props.error) {
+      authFail = (
+        <div
+          className="alert alert-danger alert-dismissible fade show"
+          role="alert"
+        >
+          {this.props.error}
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+            onClick={this.removeError}
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      );
     }
     return (
       <div className="Register">
         {authRedirect}
         <h1>Login</h1>
+        {authFail}
         <form method="POST" onSubmit={this.login}>
           <div class="form-group">
             <input
@@ -60,7 +96,7 @@ class Login extends Component {
           </div>
           <input className="btn btn-success" type="submit" value="Log in" />
         </form>
-        <br/>
+        <br />
         Don't have an account? <Link to="/register">Register</Link>
       </div>
     );
@@ -69,13 +105,17 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.token !== null
-  }
-}
+    isAuthenticated: state.auth.token !== null,
+    error: state.auth.error
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
-    authUser: info => dispatch({ type: actionTypes.AUTH_LOGIN, authInfo: info })
+    authUser: info =>
+      dispatch({ type: actionTypes.AUTH_LOGIN, authInfo: info }),
+    authFail: error => dispatch({ type: actionTypes.AUTH_ERROR, error: error }),
+    clearError: () => dispatch({ type: actionTypes.CLEAR_ERROR })
   };
 };
 
