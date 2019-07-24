@@ -1,6 +1,8 @@
 # Markdown Notes
 
-![React Markdown Notes](./react-gif.gif)
+<kbd>
+  <img src="./react-gif.gif">
+</kbd>
 
 React app that allows users to create, read, update and delete Markdown based notes. Also uses Redux, React Router and localStorage. Firebase is used for the backend.
 
