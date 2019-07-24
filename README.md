@@ -4,10 +4,6 @@ React app that allows users to create, read, update and delete Markdown based no
 
 Live version can be found [here](https://confident-blackwell-dc65d5.netlify.com/).
 
-
-
-
-
 <kbd>
   <img src="./react-gif.gif">
 </kbd>
