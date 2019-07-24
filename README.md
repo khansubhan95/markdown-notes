@@ -2,4 +2,4 @@
 
 React app that allows users to create Markdown based notes.
 
-Live version can be found [here](https://heuristic-curran-0442a7.netlify.com/).
+Live version can be found [here](https://confident-blackwell-dc65d5.netlify.com/).
